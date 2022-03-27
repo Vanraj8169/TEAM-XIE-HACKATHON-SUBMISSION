@@ -1,0 +1,96 @@
+from tkinter import *
+from plyer import notification
+from tkinter import messagebox
+from PIL import Image, ImageTk
+import time
+
+t = Tk()
+t.title('Healthy Life')
+t.geometry("500x450")
+img = Image.open("notify-label1.png")
+tkimage = ImageTk.PhotoImage(img)
+
+
+# get details
+def get_details():
+    get_title = title.get()
+    get_msg = msg.get()
+    get_time = time1.get()
+    get_water = w_title.get()
+    get_eyes = e_title.get()
+    get_exercise = phy_title.get()
+    # print(get_title,get_msg, tt)
+
+    if get_title == "" or get_msg == "" or get_time == "" or get_water == "" or get_eyes == "" or get_exercise == "":
+        messagebox.showerror("Alert", "All fields are required!")
+    else:
+        int_time = int(float(get_time))
+        min_to_sec = int_time * 60
+        messagebox.showinfo("notifier set", "set notification ?")
+        t.destroy()
+        time.sleep(min_to_sec)
+
+        notification.notify(title=get_title,
+                            message=get_msg,
+                            app_name="Notifier",
+                            app_icon="ico.ico",
+                            toast=True,
+                            timeout=10)
+
+
+img_label = Label(t, image=tkimage).grid()
+
+# eyes Label
+eyes_label = Label(t, text="Eyes Relaxation",fg="#ffffff", bg="#528DFF",font=("poppins", 10))
+eyes_label.place(x=12, y=100)
+#eyes - Title
+e_title = Entry(t, width="25",font=("poppins", 13))
+e_title.place(x=123, y =100)
+
+# water - label
+water_label = Label(t, text="Water Drinking",fg="#ffffff", bg="#528DFF", font=("poppins", 10))
+water_label.place(x=12, y=150)
+#water - Title
+w_title = Entry(t, width="25",font=("poppings",13))
+w_title.place(x=123,y=150)
+
+#physical activity - Label
+phy_label = Label(t,text="Exercise",fg="#ffffff", bg="#528DFF",font=("poppins",10))
+phy_label.place(x=12, y=200)
+phy_title = Entry(t, width="25",font=("poppins", 13))
+phy_title.place(x=123, y =200)
+
+
+# Label - Title
+t_label = Label(t, text="Title to Notify", fg="#ffffff", bg="#528DFF",font=("poppins", 10))
+t_label.place(x=12, y=250)
+# ENTRY - Title
+title = Entry(t, width="25", font=("poppins", 13))
+title.place(x=123, y=250)
+
+# Label - Message
+m_label = Label(t, text="Display Message", fg="#ffffff", bg="#528DFF",font=("poppins", 10))
+m_label.place(x=12, y=300)
+# ENTRY - Message
+msg = Entry(t, width="40", font=("poppins", 13))
+msg.place(x=123, height=30, y=300)
+
+# Label - Time
+time_label = Label(t, text="Set Time", fg="#ffffff", bg="#528DFF",font=("poppins", 10))
+time_label.place(x=12, y=350)
+# ENTRY - Time
+time1 = Entry(t, width="5", font=("poppins", 13))
+time1.place(x=123, y=350)
+
+# Label - min
+time_min_label = Label(t, text="min", font=("poppins", 10))
+time_min_label.place(x=175, y=350)
+
+# Button
+but = Button(t, text="SET NOTIFICATION", font=("poppins", 10, "bold"), fg="#ffffff", bg="#528DFF", width=20,
+             relief="raised",
+             command=get_details)
+but.place(x=200, y=400)
+
+t.resizable(0, 0)
+t.mainloop()
